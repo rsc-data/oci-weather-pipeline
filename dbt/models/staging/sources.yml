@@ -1,0 +1,6 @@
+version: 2
+sources:
+  - name: raw
+    schema: PIPELINE
+    tables:
+      - name: raw_weather_daily

@@ -1,0 +1,10 @@
+weather:
+  target: prod
+  outputs:
+    prod:
+      type: oracle
+      user: "{{ env_var('ADW_USER') }}"
+      pass: "{{ env_var('ADW_PASSWORD') }}"
+      connection_string: "{{ env_var('ADW_DSN') }}"
+      schema: PIPELINE
+      threads: 1

@@ -1,0 +1,8 @@
+version: 2
+models:
+  - name: stg_weather_daily
+    columns:
+      - name: city
+        data_tests: [not_null]
+      - name: obs_date
+        data_tests: [not_null]
