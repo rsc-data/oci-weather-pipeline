@@ -7,11 +7,7 @@ from airflow.sdk import dag, task
 from airflow.providers.standard.operators.bash import BashOperator
 
 CITIES = {
-    "New York": (40.71, -74.01),
-    "Chicago": (41.88, -87.63),
-    "Houston": (29.76, -95.37),
-    "Phoenix": (33.45, -112.07),
-    "Seattle": (47.61, -122.33),
+    "Clarks Summit": (41.49, -75.73),
 }
 DBT = "/opt/airflow/dbt_venv/bin/dbt"
 DBT_DIR = "/opt/airflow/dbt"
@@ -39,6 +35,8 @@ def weather_pipeline():
                     "past_days": 7,
                     "forecast_days": 1,
                     "timezone": "auto",
+                    "temperature_unit": "fahrenheit",
+	                "precipitation_unit": "inch",
                 },
                 timeout=30,
             )
@@ -61,7 +59,7 @@ def weather_pipeline():
             with conn.cursor() as cur:
                 cur.executemany(
                     "INSERT INTO raw_weather_daily "
-                    "(city, obs_date, temp_max_c, temp_min_c, precip_mm) "
+                    "(city, obs_date, temp_max_f, temp_min_f, precip_in) "
                     "VALUES (:1, :2, :3, :4, :5)",
                     rows,
                 )
